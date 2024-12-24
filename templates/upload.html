@@ -1,0 +1,47 @@
+<!DOCTYPE html>
+<html lang="ru">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Загрузка базы данных</title>
+</head>
+<body>
+    <h1>Загрузка базы данных</h1>
+    <form action="/upload" method="get">
+        <button type="submit">Загрузить данные из базы</button>
+    </form>
+    
+    {% if error %}
+        <p style="color: red;">{{ error }}</p>
+    {% endif %}
+
+    {% if mice %}
+        <h2>Данные из базы:</h2>
+
+        <form method="get" action="/upload">
+            <label for="sort_by">Сортировать по:</label>
+            <select name="sort_by" id="sort_by">
+                <option value="сила_кнопки">Сила кнопки</option>
+                <option value="макс_dpi">Макс DPI</option>
+                <option value="макс_частота">Макс частота опроса</option>
+            </select>
+            <button type="submit">Сортировать</button>
+        </form>
+
+        <table border="1">
+            <tr>
+                {% for column in columns %}
+                    <th>{{ column }}</th>
+                {% endfor %}
+            </tr>
+            {% for mouse in mice %}
+            <tr>
+                {% for value in mouse %}
+                    <td>{{ value }}</td>
+                {% endfor %}
+            </tr>
+            {% endfor %}
+        </table>
+    {% endif %}
+</body>
+</html>
